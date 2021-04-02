@@ -1,5 +1,5 @@
 .container {
-    margin-bottom: 0.9375em;
+    margin-bottom: 0.3125em;
 }
 
 .form {
@@ -10,14 +10,4 @@
 
 .form .form-field {
     margin-bottom: 0.625em;
-}
-
-.form .form-button {
-    max-width: fit-content;
-    margin-right: 0.3125em;
-}
-
-.form .form-button-group {
-    display: flex;
-    flex-direction: row;
 }

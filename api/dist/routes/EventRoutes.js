@@ -7,8 +7,12 @@ const setEventRoutes = (app) => {
         const events = EventController_1.getAllEvents();
         res.status(200).json(events).end();
     });
-    app.get("/events/:date", (req, res) => {
-        const events = EventController_1.getMonthEvents(new Date(req.params.date));
+    app.get("/event/:id", (req, res) => {
+        const event = EventController_1.getEventById(Number(req.params.id));
+        res.status(200).json(event).end();
+    });
+    app.get("/events/month", (req, res) => {
+        const events = EventController_1.getMonthEvents(new Date(req.query.date.toString()));
         res.status(200).json(events).end();
     });
     app.post("/events", (req, res) => {

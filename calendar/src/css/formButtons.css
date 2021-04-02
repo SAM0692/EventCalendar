@@ -1,0 +1,10 @@
+.form-button-group {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.625em;
+}
+
+.form-button-group .form-button {
+    max-width: fit-content;
+    margin-right: 0.3125em;
+}

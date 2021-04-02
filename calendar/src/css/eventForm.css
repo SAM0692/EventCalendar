@@ -1,0 +1,23 @@
+.container {
+    margin-bottom: 0.9375em;
+}
+
+.form {
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form .form-field {
+    margin-bottom: 0.625em;
+}
+
+.form .form-button {
+    max-width: fit-content;
+    margin-right: 0.3125em;
+}
+
+.form .form-button-group {
+    display: flex;
+    flex-direction: row;
+}

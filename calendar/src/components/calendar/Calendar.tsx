@@ -12,14 +12,15 @@ import CalendarMonthDays from "./CalendarMonthDays";
 
 export type CalendarItem = {
     id?: number,
-    displayText: String
+    displayText: String,
+    description?: String,
     date: Date
 }
 
 type CalendarProps = {
-    onMonthChange?: Function,
-    onEventClick?: Function,
-    monthEvents?: CalendarItem[]
+    onMonthChange: Function,
+    onEventClick: Function,
+    monthEvents: CalendarItem[]
 }
 
 const Calendar: FC<CalendarProps> = ({ onMonthChange = () => { }, onEventClick = () => { }, monthEvents = [] }) => {

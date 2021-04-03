@@ -1,15 +1,15 @@
-import "../../css/eventForm.css";
+import "../../css/formFields.css";
 import { useState, FC, useEffect } from "react";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import DatePicker from "react-date-picker";
 import Event from "../../types/Event"
 
-type EventFormProps = {
-    selectedEvent?: Event | null,
+type FormFieldsProps = {
+    selectedEvent?: Event,
     onEventChange: Function
 }
 
-const EventForm: FC<EventFormProps> = ({ selectedEvent, onEventChange }) => {
+const FormFields: FC<FormFieldsProps> = ({ selectedEvent, onEventChange }) => {
     const [selectedDate, setSelectedDate] = useState<Date | Date[]>();
     const [name, setName] = useState<String>();
     const [description, setDescription] = useState<String>();
@@ -45,4 +45,4 @@ const EventForm: FC<EventFormProps> = ({ selectedEvent, onEventChange }) => {
     )
 }
 
-export default EventForm
+export default FormFields

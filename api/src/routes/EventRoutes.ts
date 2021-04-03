@@ -15,7 +15,7 @@ export const setEventRoutes = (app: Express) => {
         res.status(200).json(events).end();
     });
 
-    app.get("/event/:id", (req, res) => {
+    app.get("/events/:id", (req, res) => {
         const event = getEventById(Number(req.params.id));
 
         res.status(200).json(event).end();

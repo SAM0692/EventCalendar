@@ -1,17 +1,30 @@
 import './App.css';
 
 import { useState, useEffect, FC } from "react"
-import Calendar, { CalendarItem } from "./components/calendar/Calendar";
-import EventForm from "./components/events/EventForm";
+import {
+  Switch,
+  Route,
+  useHistory,
+  withRouter,
+  useRouteMatch
+} from "react-router-dom";
+import { CalendarItem } from "./components/calendar/Calendar";
 import Event, { DefaultEventValues } from "./types/Event";
-import FormButtons from './components/events/FormButtons';
+import EventsPage from './pages/EventsPage';
+import EventForm from './pages/EventForm';
+import React from 'react';
+import EventPage from './pages/EventPage';
+
+
 
 const App: FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [monthEvents, setMonthEvents] = useState<CalendarItem[]>();
+  const [monthEvents, setMonthEvents] = useState<CalendarItem[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event>(DefaultEventValues);
   const [canSave, setCanSave] = useState(false);
   const [canCancel, setCanCancel] = useState(false);
+  const history = useHistory();
+  const match = useRouteMatch();
 
   useEffect(() => {
     loadCurrentMonthEvents();
@@ -72,6 +85,10 @@ const App: FC = () => {
     console.log(response.status);
   }
 
+  const goToPage = (path: string) => {
+    history.push(path);
+  }
+
   const loadCurrentMonthEvents = async () => {
     const events = await getCurrentMonthEvents();
 
@@ -95,7 +112,7 @@ const App: FC = () => {
   }
 
   const handleSaveClick = () => {
-    if (selectedEvent.id != undefined) {
+    if (selectedEvent.id !== undefined) {
       updateEvent();
     } else {
       createEvent();
@@ -103,12 +120,28 @@ const App: FC = () => {
 
     clearEvent();
     updateEventList();
+    goToPage("/");
+  }
+
+  const handleNewClick = () => {
+    goToPage("/new");
+  }
+
+  const handleViewClick = (eventId: number) => {
+    handleEventClick(eventId);
+    goToPage("/view");
+  }
+
+  const handleEditClick = () => {
+    goToPage("/edit");
   }
 
   const handleCancelClick = () => {
     deleteEvent();
     clearEvent();
     updateEventList();
+
+    goToPage("/");
   }
 
   const clearEvent = () => {
@@ -119,20 +152,25 @@ const App: FC = () => {
     loadCurrentMonthEvents();
   }
 
+
   return (
-    <div className="App">
-      <header>
-        <p>
-          Calendar Code Challenge
-        </p>
-      </header>
-      <main>
-        <EventForm selectedEvent={selectedEvent} onEventChange={handleEventChange} />
-        <FormButtons canSave={canSave} canCancel={canCancel} onSaveClick={handleSaveClick} onCancelClick={handleCancelClick} onClearClick={clearEvent} />
-        <Calendar monthEvents={monthEvents} onMonthChange={handleMonthChange} onEventClick={handleEventClick} />
-      </main>
+    <div>
+      <Switch>
+        <Route path={"/new"} >
+          <EventForm selectedEvent={selectedEvent} canSave={canSave} canCancel={canCancel} isCreating={true} handleEventChange={handleEventChange} handleSaveClick={handleSaveClick} handleCancelClick={handleCancelClick} clearEvent={clearEvent} />
+        </Route>
+        <Route path={"/edit"} >
+          <EventForm selectedEvent={selectedEvent} canSave={canSave} canCancel={canCancel} isCreating={false} handleEventChange={handleEventChange} handleSaveClick={handleSaveClick} handleCancelClick={handleCancelClick} clearEvent={clearEvent} />
+        </Route>
+        <Route path="/view">
+          <EventPage selectedEvent={selectedEvent} handleEditClick={handleEditClick} />
+        </Route>
+        <Route path="/">
+          <EventsPage monthEvents={monthEvents} handleNewClick={handleNewClick} handleViewClick={handleViewClick} handleCancelClick={handleCancelClick} handleMonthChange={handleMonthChange} />
+        </Route>
+      </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default withRouter(App);

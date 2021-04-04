@@ -11,7 +11,6 @@ const getMonthEvents = (date) => storage.events.filter((event) => date_fns_1.isS
 exports.getMonthEvents = getMonthEvents;
 const createEvent = (event) => storage.events.push(Object.assign(Object.assign({}, event), { id: new Date().getTime() }));
 exports.createEvent = createEvent;
-;
 const updateEvent = (id, event) => {
     const eventIndex = storage.events.findIndex((event) => event.id === id);
     storage.events[eventIndex] = Object.assign(Object.assign(Object.assign({}, storage.events[eventIndex]), event), { id });

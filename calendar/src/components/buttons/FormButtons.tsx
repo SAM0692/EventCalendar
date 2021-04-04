@@ -5,13 +5,13 @@ import { Button } from "@material-ui/core";
 type FormButtonsProps = {
     isCreating: boolean,
     canSave: boolean,
-    canCancel: boolean,
+    canCancel?: boolean,
     onSaveClick: Function,
-    onCancelClick: Function,
+    onCancelClick?: Function,
     onClearClick: Function
 }
 
-const FormButtons: FC<FormButtonsProps> = ({ isCreating, canSave, canCancel, onSaveClick, onCancelClick, onClearClick }) => {
+const FormButtons: FC<FormButtonsProps> = ({ isCreating, canSave, canCancel, onSaveClick, onCancelClick = () => { }, onClearClick }) => {
 
     return (
         <div className="form-button-group">

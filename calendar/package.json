@@ -2,8 +2,9 @@
   "name": "calendar",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:4000",
   "dependencies": {
+    "@apollo/client": "^3.3.13",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.10",
@@ -11,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@types/react-router-dom": "^5.1.7",
     "date-fns": "^2.19.0",
+    "graphql": "^15.5.0",
     "react": "^17.0.2",
     "react-date-picker": "^8.1.1",
     "react-dom": "^17.0.2",

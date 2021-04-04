@@ -7,27 +7,25 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { CalendarItem } from "../calendar/Calendar";
 import { Button } from "@material-ui/core";
+import Event from "../../types/Event"
 
 type EventListProps = {
-    monthEvents: CalendarItem[],
+    events: Event[],
     onViewClick: Function,
-    onCancelClick: Function,
 }
 
-const EventList: FC<EventListProps> = ({ monthEvents, onViewClick, onCancelClick }) => {
+const EventList: FC<EventListProps> = ({ events, onViewClick }) => {
 
     const renderEventRows = () => {
-        const rows = monthEvents.map((event: CalendarItem) => (
+        const rows = events.map((event: Event) => (
             <TableRow key={event.id}>
                 <TableCell component="th" scope="row">
-                    {event.displayText}
+                    {event.name}
                 </TableCell>
                 <TableCell align="right">{event.description}</TableCell>
                 <TableCell align="right">{event.date}</TableCell>
                 <TableCell align="right">{<Button onClick={() => { onViewClick(event.id) }} >View</Button>}</TableCell>
-                {/* <TableCell align="right">{<Button onClick={() => { onCancelClick(event.id) }} >Cancel</Button>}</TableCell> */}
             </TableRow>
         ))
 
@@ -43,7 +41,6 @@ const EventList: FC<EventListProps> = ({ monthEvents, onViewClick, onCancelClick
                         <TableCell align="right">Decription</TableCell>
                         <TableCell align="right">Date</TableCell>
                         <TableCell align="right">View</TableCell>
-                        {/* <TableCell align="right">Delete</TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>

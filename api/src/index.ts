@@ -1,5 +1,6 @@
 import express from "express";
 import { json } from "body-parser";
+import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 import { setEventRoutes } from "./routes/EventRoutes";
 import schema from "./graphql/types";
@@ -8,6 +9,7 @@ import resolver from "./graphql/resolvers";
 const app = express();
 
 app.use(json());
+app.use(cors());
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: resolver,

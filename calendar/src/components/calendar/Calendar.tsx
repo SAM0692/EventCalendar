@@ -13,7 +13,6 @@ import CalendarMonthDays from "./CalendarMonthDays";
 export type CalendarItem = {
     id?: number,
     displayText: String,
-    description?: String,
     date: Date
 }
 

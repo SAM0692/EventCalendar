@@ -19,17 +19,17 @@ export type CalendarItem = {
 type CalendarProps = {
     onMonthChange: Function,
     onEventClick: Function,
-    monthEvents: CalendarItem[]
+    calendarItems: CalendarItem[]
 }
 
-const Calendar: FC<CalendarProps> = ({ onMonthChange = () => { }, onEventClick = () => { }, monthEvents = [] }) => {
+const Calendar: FC<CalendarProps> = ({ onMonthChange = () => { }, onEventClick = () => { }, calendarItems = [] }) => {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [currentDate] = useState(new Date());
 
     useEffect(() => {
         onMonthChange(selectedDate);
-    }, [selectedDate, monthEvents]);
+    }, [selectedDate]);
 
     const onArrowClick = (direction: String) => {
         switch (direction) {
@@ -53,7 +53,7 @@ const Calendar: FC<CalendarProps> = ({ onMonthChange = () => { }, onEventClick =
         <div className="calendar">
             <CalendarControls onArrowClick={onArrowClick} selectedDate={selectedDate} />
             <CalendarWeekDays selectedDate={selectedDate} />
-            <CalendarMonthDays selectedDate={selectedDate} currentDate={currentDate} monthEvents={monthEvents} onEventClick={onEventClick} />
+            <CalendarMonthDays selectedDate={selectedDate} currentDate={currentDate} monthEvents={calendarItems} onEventClick={onEventClick} />
         </div>
     );
 }

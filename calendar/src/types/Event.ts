@@ -1,7 +1,7 @@
 export default interface Event {
     id?: number;
-    name: String;
-    description: String;
+    name: string;
+    description: string;
     date: Date;
 };
 

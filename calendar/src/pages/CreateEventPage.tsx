@@ -1,16 +1,22 @@
 import "../css/eventPages.css";
 import { FC, useState, useEffect } from "react";
-import FormFields from "../components/form/FormFields";
+import { useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import EventForm from "../components/form/EventForm";
 import FormButtons from "../components/buttons/FormButtons";
 import Event, { DefaultEventValues } from "../types/Event";
+import { CREATE_EVENT } from "../graphql/mutations";
 
 const CreateEventPage: FC = () => {
-    const [selectedEvent, setSelectedEvent] = useState<Event>(DefaultEventValues);
+    const [newEvent, setSelectedEvent] = useState<Event>(DefaultEventValues);
     const [canSave, setCanSave] = useState(false);
+    const history = useHistory();
+
+    const [createEventMutation] = useMutation(CREATE_EVENT);
 
     useEffect(() => {
-        setCanSave(selectedEvent.name !== "");
-    }, [selectedEvent]);
+        setCanSave(newEvent.name !== "");
+    }, [newEvent]);
 
     const clearEvent = () => {
         setSelectedEvent(DefaultEventValues);
@@ -21,13 +27,22 @@ const CreateEventPage: FC = () => {
     }
 
     const handleSaveClick = () => {
-        // createEvent();
-        console.log("createEvent")
+        createEventMutation({
+            variables: {
+                input: {
+                    name: newEvent.name,
+                    description: newEvent.description,
+                    date: newEvent.date.toString()
+                }
+            }
+        })
+
+        history.push("/");
     }
 
     return (
         <div>
-            <FormFields selectedEvent={selectedEvent} onEventChange={handleEventChange} />
+            <EventForm selectedEvent={newEvent} onEventChange={handleEventChange} />
             <FormButtons isCreating={true} canSave={canSave} onSaveClick={handleSaveClick} onClearClick={clearEvent} />
         </div>
     )

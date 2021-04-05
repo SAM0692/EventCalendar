@@ -16,7 +16,6 @@ type EventListProps = {
 }
 
 const EventList: FC<EventListProps> = ({ events, onViewClick }) => {
-
     const renderEventRows = () => {
         const rows = events.map((event: Event) => (
             <TableRow key={event.id}>
@@ -24,7 +23,7 @@ const EventList: FC<EventListProps> = ({ events, onViewClick }) => {
                     {event.name}
                 </TableCell>
                 <TableCell align="right">{event.description}</TableCell>
-                <TableCell align="right">{event.date}</TableCell>
+                <TableCell align="right">{event.date.toString()}</TableCell>
                 <TableCell align="right">{<Button onClick={() => { onViewClick(event.id) }} >View</Button>}</TableCell>
             </TableRow>
         ))

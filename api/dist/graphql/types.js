@@ -13,16 +13,11 @@ const schema = graphql_1.buildSchema(`
         date: String
     },
     type Mutation {
-        createEvent(input: CreateEventInput!): Boolean
-        updateEvent(id: ID!, input: UpdateEventInput!): Boolean
+        createEvent(input: EventInput!): Boolean
+        updateEvent(id: ID!, input: EventInput!): Event
         deleteEvent(id: ID!): Boolean
     },
-    input CreateEventInput {
-        name: String
-        description: String
-        date: String
-    },
-    input UpdateEventInput {
+    input EventInput {
         name: String
         description: String
         date: String

@@ -1,23 +1,25 @@
-import "../../css/formFields.css";
+import "../../css/eventForm.css";
 import { useState, FC, useEffect } from "react";
 import { TextField } from "@material-ui/core";
 import DatePicker from "react-date-picker";
 import Event from "../../types/Event"
 
-type FormFieldsProps = {
+type EventFormProps = {
     selectedEvent?: Event,
     onEventChange: Function
 }
 
-const FormFields: FC<FormFieldsProps> = ({ selectedEvent, onEventChange }) => {
-    const [selectedDate, setSelectedDate] = useState<Date | Date[]>();
-    const [name, setName] = useState<String>();
-    const [description, setDescription] = useState<String>();
+const EventForm: FC<EventFormProps> = ({ selectedEvent, onEventChange }) => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
 
     useEffect(() => {
-        setSelectedDate(selectedEvent ? new Date(selectedEvent.date) : new Date());
-        setName(selectedEvent ? selectedEvent.name : "");
-        setDescription(selectedEvent ? selectedEvent.description : "");
+        if (selectedEvent) {
+            setSelectedDate(new Date(selectedEvent.date));
+            setName(selectedEvent.name);
+            setDescription(selectedEvent.description);
+        }
     }, [selectedEvent]);
 
     return (
@@ -37,12 +39,12 @@ const FormFields: FC<FormFieldsProps> = ({ selectedEvent, onEventChange }) => {
                     }} />
                 <DatePicker className="form-field" value={selectedDate}
                     onChange={(date) => {
-                        setSelectedDate(date)
-                        onEventChange({ ...selectedEvent, date: date });
+                        setSelectedDate(new Date(date.toString()))
+                        onEventChange({ ...selectedEvent, date: new Date(date.toString()) });
                     }} />
             </div>
         </div>
     )
 }
 
-export default FormFields
+export default EventForm

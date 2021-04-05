@@ -1,9 +1,13 @@
 import "../css/eventPages.css";
 import { FC, useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import FormFields from "../components/form/FormFields";
+import { useQuery, useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import FormFields from "../components/form/EventForm";
 import FormButtons from "../components/buttons/FormButtons";
 import Event, { DefaultEventValues } from "../types/Event";
+import { GET_EVENT } from "../graphql/queries";
+import { UPDATE_EVENT, DELETE_EVENT } from "../graphql/mutations";
 
 interface EditEventParams {
     id: string
@@ -12,15 +16,32 @@ interface EditEventParams {
 const EditEventPage: FC = () => {
     const [selectedEvent, setSelectedEvent] = useState<Event>(DefaultEventValues);
     const [canSave, setCanSave] = useState(false);
-    const [canCancel, setCanCancel] = useState(false);
     const { id } = useParams<EditEventParams>();
+    const history = useHistory();
 
-
+    const [updateEventMutation] = useMutation(UPDATE_EVENT);
+    const [deleteEventMutation] = useMutation(DELETE_EVENT);
 
     useEffect(() => {
         setCanSave(selectedEvent.name !== "");
-        setCanCancel(selectedEvent.id ? true : false);
     }, [selectedEvent]);
+
+    const { loading, error, data } = useQuery(GET_EVENT, {
+        variables: { id: id }
+    });
+
+    useEffect(() => {
+        if (data !== undefined) {
+            setSelectedEvent({
+                name: data.event.name,
+                description: data.event.description,
+                date: new Date(Number(data.event.date))
+            });
+        }
+    }, [data]);
+
+    if (loading) return <p>Loading Events...</p>;
+    if (error) return <p>Error during data fetch</p>;
 
     const clearEvent = () => {
         setSelectedEvent(DefaultEventValues);
@@ -31,20 +52,34 @@ const EditEventPage: FC = () => {
     }
 
     const handleSaveClick = () => {
-        // updateEvent();
-        console.log("updateEvent")
+        updateEventMutation({
+            variables: {
+                id: id,
+                input: {
+                    name: selectedEvent.name,
+                    description: selectedEvent.description,
+                    date: selectedEvent.date.toString()
+                }
+            }
+        })
+
+        history.push("/");
     }
 
     const handleCancelClick = () => {
-        //   deleteEvent();
-        console.log("deleteEvent")
-        clearEvent();
+        deleteEventMutation({
+            variables: {
+                id: id
+            }
+        })
+
+        history.push("/");
     }
 
     return (
         <div>
             <FormFields selectedEvent={selectedEvent} onEventChange={handleEventChange} />
-            <FormButtons isCreating={false} canSave={canSave} canCancel={canCancel} onSaveClick={handleSaveClick} onCancelClick={handleCancelClick} onClearClick={clearEvent} />
+            <FormButtons isCreating={false} canSave={canSave} onSaveClick={handleSaveClick} onCancelClick={handleCancelClick} onClearClick={clearEvent} />
         </div>
     )
 }

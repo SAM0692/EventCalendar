@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const EventController_1 = require("../controllers/EventController");
 const resolver = {
     event: ({ id }) => { return EventController_1.getEventById(Number(id)); },
-    events: ({ date }) => { return date ? EventController_1.getMonthEvents(new Date(date)) : EventController_1.getAllEvents(); },
+    events: () => { return EventController_1.getAllEvents(); },
     createEvent: ({ input }) => {
         const newEvent = {
             name: input.name,

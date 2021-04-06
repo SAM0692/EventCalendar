@@ -2,7 +2,6 @@ import { Express } from "express";
 import {
     getAllEvents,
     getEventById,
-    getMonthEvents,
     createEvent,
     updateEvent,
     deleteEvent
@@ -19,12 +18,6 @@ export const setEventRoutes = (app: Express) => {
         const event = getEventById(Number(req.params.id));
 
         res.status(200).json(event).end();
-    });
-
-    app.get("/events/month", (req, res) => {
-        const events = getMonthEvents(new Date(req.query.date.toString()));
-
-        res.status(200).json(events).end();
     });
 
     app.post("/events", (req, res) => {

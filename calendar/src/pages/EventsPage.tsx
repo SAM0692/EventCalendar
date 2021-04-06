@@ -17,7 +17,6 @@ const EventsPage: FC = () => {
     const history = useHistory();
 
     const { loading, error, data } = useQuery(GET_ALL_EVENTS, {
-        variables: { date: null },
         fetchPolicy: "cache-and-network"
     });
 
@@ -32,7 +31,7 @@ const EventsPage: FC = () => {
         }
     }, [data]);
 
-    if (loading) return <p>Loading Events...</p>;
+    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error during data fetch</p>;
 
     const changeView = () => {

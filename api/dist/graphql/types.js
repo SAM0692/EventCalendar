@@ -4,7 +4,7 @@ const graphql_1 = require("graphql");
 const schema = graphql_1.buildSchema(`
     type Query {
         event(id: ID!): Event
-        events(date: String): [Event]
+        events: [Event]
     },
     type Event {
         id: ID

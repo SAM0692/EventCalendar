@@ -1,7 +1,6 @@
 import {
     getAllEvents,
     getEventById,
-    getMonthEvents,
     createEvent,
     updateEvent,
     deleteEvent
@@ -10,7 +9,7 @@ import Event from "../types/Event";
 
 const resolver = {
     event: ({ id }: { id: string }) => { return getEventById(Number(id)) },
-    events: ({ date }: { date: string }) => { return date ? getMonthEvents(new Date(date)) : getAllEvents() },
+    events: () => { return getAllEvents() },
     createEvent: ({ input }: { input: any }) => {
         const newEvent: Event = {
             name: input.name,

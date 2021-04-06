@@ -9,6 +9,8 @@ type EventFormProps = {
     onEventChange: Function
 }
 
+const MIN_DATE = new Date();
+
 const EventForm: FC<EventFormProps> = ({ selectedEvent, onEventChange }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [name, setName] = useState("");
@@ -37,7 +39,7 @@ const EventForm: FC<EventFormProps> = ({ selectedEvent, onEventChange }) => {
                         setDescription(e.target.value);
                         onEventChange({ ...selectedEvent, description: e.target.value });
                     }} />
-                <DatePicker className="form-field" value={selectedDate} clearIcon={null}
+                <DatePicker className="form-field" value={selectedDate} clearIcon={null} minDate={MIN_DATE}
                     onChange={(date) => {
                         setSelectedDate(new Date(date.toString()))
                         onEventChange({ ...selectedEvent, date: new Date(date.toString()) });

@@ -2,7 +2,7 @@ import "../css/eventPages.css";
 import { FC, useState, useEffect } from "react";
 import { useParams, useHistory } from 'react-router-dom';
 import { useQuery } from "@apollo/client";
-import Event, { DefaultEventValues } from "../types/Event";
+import { DefaultEventValues } from "../types/Event";
 import EventView from "../components/event/EventView";
 import ViewButtons from "../components/buttons/ViewButtons";
 import { GET_EVENT } from "../graphql/queries";

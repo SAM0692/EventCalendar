@@ -29,7 +29,7 @@ const Calendar: FC<CalendarProps> = ({ onMonthChange = () => { }, onEventClick =
 
     useEffect(() => {
         onMonthChange(selectedDate);
-    }, [selectedDate]);
+    }, [selectedDate, onMonthChange]);
 
     const onArrowClick = (direction: String) => {
         switch (direction) {

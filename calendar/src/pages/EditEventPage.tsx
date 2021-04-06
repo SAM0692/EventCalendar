@@ -69,8 +69,6 @@ const EditEventPage: FC = () => {
                 }
             }
         })
-
-        history.push("/");
     }
 
     const handleCancelClick = () => {
@@ -79,8 +77,6 @@ const EditEventPage: FC = () => {
                 id: id
             }
         })
-
-        history.push("/");
     }
 
     return (

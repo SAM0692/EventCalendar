@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_EVENTS = gql`
-query GetAllEvents($date: String){
-    events(date: $date) {
+query GetAllEvents{
+    events{
         id
         name
         description

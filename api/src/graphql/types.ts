@@ -3,7 +3,7 @@ import { buildSchema } from "graphql";
 const schema = buildSchema(`
     type Query {
         event(id: ID!): Event
-        events(date: String): [Event]
+        events: [Event]
     },
     type Event {
         id: ID

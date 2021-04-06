@@ -1,0 +1,1 @@
+{"version":3,"file":"EventModel.js","sourceRoot":"","sources":["../../src/mongodb/EventModel.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;AAAA,qDAA4C;AAE5C,MAAM,WAAW,GAAG,IAAI,iBAAM,CAAC;IAC3B,EAAE,EAAE,MAAM;IACV,IAAI,EAAE,MAAM;IACZ,WAAW,EAAE,MAAM;IACnB,IAAI,EAAE,IAAI;CACb,CAAC,CAAC;AAEH,MAAM,UAAU,GAAG,kBAAQ,CAAC,KAAK,CAAC,YAAY,EAAE,WAAW,CAAC,CAAC;AAE7D,kBAAe,UAAU,CAAC"}

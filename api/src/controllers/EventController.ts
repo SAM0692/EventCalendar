@@ -1,29 +1,48 @@
 import Event from "../types/Event";
-import TmpBase from "../types/TmpBase";
-import { isSameMonth } from "date-fns";
+import EventModel from "../mongodb/EventModel";
 
-const storage: TmpBase = { events: [] };
+export const getAllEvents = () => { return EventModel.find({}) };
 
-export const getAllEvents = () => storage.events;
+export const getEventById = async (id: number) => {
+    const event = await EventModel.findOne({ id: id }, (err: any, result: any) => {
+        if (err) {
+            console.log(err);
+        } else {
+            return {
+                id: result.id,
+                name: result.name,
+                description: result.description,
+                date: result.date
+            }
+        }
+    });
 
-export const getEventById = (id: number) => storage.events.find((event) => event.id === id);
+    return event;
+};
 
-export const getMonthEvents = (date: Date) => storage.events.filter((event) => isSameMonth(new Date(event.date), date));
-
-export const createEvent = (event: Event) => storage.events.push({ ...event, id: new Date().getTime() });
+export const createEvent = (event: Event) => {
+    EventModel.create({
+        id: new Date().getTime(),
+        name: event.name,
+        description: event.description,
+        date: event.date
+    }, (err: any) => {
+        if (err) console.log(err)
+    });
+};
 
 export const updateEvent = (id: number, event: Event) => {
-    const eventIndex = storage.events.findIndex((event) => event.id === id);
-
-    storage.events[eventIndex] = {
-        ...storage.events[eventIndex],
-        ...event,
-        id
-    };
+    EventModel.updateOne({ id: id }, {
+        name: event.name,
+        description: event.description,
+        date: event.date
+    }, null, (err) => {
+        if (err) console.log(err)
+    });
 };
 
 export const deleteEvent = (id: number) => {
-    const eventIndex = storage.events.findIndex((event) => event.id === id);
-
-    storage.events.splice(eventIndex, 1);
+    EventModel.deleteOne({ id: id }, null, (err) => {
+        if (err) console.log(err)
+    });
 }

@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = require("body-parser");
 const cors_1 = __importDefault(require("cors"));
 const express_graphql_1 = require("express-graphql");
+const mongoose_1 = __importDefault(require("mongoose"));
 const EventRoutes_1 = require("./routes/EventRoutes");
 const types_1 = __importDefault(require("./graphql/types"));
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
@@ -19,7 +20,11 @@ app.use('/graphql', express_graphql_1.graphqlHTTP({
     graphiql: true
 }));
 const port = 4000;
-app.listen(port, () => console.log(`Server started at port: ${port}`));
+mongoose_1.default.connect('mongodb://127.0.0.1:27017/eventcalendardb', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+    app.listen(port, () => console.log(`Server started at port: ${port}`));
+}).catch((err) => {
+    console.log(err);
+});
 EventRoutes_1.setEventRoutes(app);
 exports.default = app;
 //# sourceMappingURL=index.js.map

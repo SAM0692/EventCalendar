@@ -11,10 +11,6 @@ const setEventRoutes = (app) => {
         const event = EventController_1.getEventById(Number(req.params.id));
         res.status(200).json(event).end();
     });
-    app.get("/events/month", (req, res) => {
-        const events = EventController_1.getMonthEvents(new Date(req.query.date.toString()));
-        res.status(200).json(events).end();
-    });
     app.post("/events", (req, res) => {
         EventController_1.createEvent(req.body);
         res.status(200).end();

@@ -17,7 +17,8 @@ const EventsPage: FC = () => {
     const history = useHistory();
 
     const { loading, error, data } = useQuery(GET_ALL_EVENTS, {
-        variables: { date: null }
+        variables: { date: null },
+        fetchPolicy: "cache-and-network"
     });
 
     useEffect(() => {

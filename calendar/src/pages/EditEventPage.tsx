@@ -18,9 +18,16 @@ const EditEventPage: FC = () => {
     const [canSave, setCanSave] = useState(false);
     const { id } = useParams<EditEventParams>();
     const history = useHistory();
+    const goToHome = () => {
+        history.push("/")
+    }
 
-    const [updateEventMutation] = useMutation(UPDATE_EVENT);
-    const [deleteEventMutation] = useMutation(DELETE_EVENT);
+    const [updateEventMutation] = useMutation(UPDATE_EVENT, {
+        onCompleted: () => { goToHome() }
+    });
+    const [deleteEventMutation] = useMutation(DELETE_EVENT, {
+        onCompleted: () => { goToHome() }
+    });
 
     useEffect(() => {
         setCanSave(selectedEvent.name !== "");

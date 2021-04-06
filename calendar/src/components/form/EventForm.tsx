@@ -37,7 +37,7 @@ const EventForm: FC<EventFormProps> = ({ selectedEvent, onEventChange }) => {
                         setDescription(e.target.value);
                         onEventChange({ ...selectedEvent, description: e.target.value });
                     }} />
-                <DatePicker className="form-field" value={selectedDate}
+                <DatePicker className="form-field" value={selectedDate} clearIcon={null}
                     onChange={(date) => {
                         setSelectedDate(new Date(date.toString()))
                         onEventChange({ ...selectedEvent, date: new Date(date.toString()) });

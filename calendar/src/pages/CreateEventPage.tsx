@@ -11,8 +11,13 @@ const CreateEventPage: FC = () => {
     const [newEvent, setSelectedEvent] = useState<Event>(DefaultEventValues);
     const [canSave, setCanSave] = useState(false);
     const history = useHistory();
+    const goToHome = () => {
+        history.push("/")
+    }
 
-    const [createEventMutation] = useMutation(CREATE_EVENT);
+    const [createEventMutation] = useMutation(CREATE_EVENT, {
+        onCompleted: () => { goToHome() }
+    });
 
     useEffect(() => {
         setCanSave(newEvent.name !== "");
@@ -35,9 +40,7 @@ const CreateEventPage: FC = () => {
                     date: newEvent.date.toString()
                 }
             }
-        })
-
-        history.push("/");
+        });
     }
 
     return (
